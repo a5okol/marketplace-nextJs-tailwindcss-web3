@@ -8,8 +8,8 @@ const Web3Context = createContext(null);
 
 const Web3Provider = ({ children }) => {
   const [web3Api, setWeb3Api] = useState({
-    provider: null,
     web3: null,
+    provider: null,
     contract: null,
     isLoading: true,
     hooks: setupHooks(),
