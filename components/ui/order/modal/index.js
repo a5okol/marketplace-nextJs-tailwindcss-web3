@@ -68,7 +68,7 @@ const OrderModal = ({ course, onClose, onSubmit }) => {
               >
                 {course.title}
               </h3>
-              <div className="mt-1 relative rounded-md">
+              {/* <div className="mt-1 relative rounded-md">
                 <div className="mb-1">
                   <label className="mb-2 font-bold">Price(eth)</label>
                   <div className="text-xs text-gray-700 flex">
@@ -113,7 +113,7 @@ const OrderModal = ({ course, onClose, onSubmit }) => {
                   will be lower, order can be declined (+- 2% slipage is
                   allowed)
                 </p>
-              </div>
+              </div> */}
               <div className="mt-2 relative rounded-md">
                 <div className="mb-1">
                   <label className="mb-2 font-bold">Email</label>
