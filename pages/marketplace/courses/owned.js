@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { BaseLayout } from '@components/ui/layout';
 import { Button, Message } from '@components/ui/common';
 import { OwnedCourseCard } from '@components/ui/course';
@@ -6,20 +8,18 @@ import { MarketHeader } from '@components/ui/marketplace';
 import { useAccount, useOwnedCourses } from '@components/hooks/web3';
 
 export default function OwnedCourses({ courses }) {
+  const router = useRouter();
   const { account } = useAccount();
   const { ownedCourses } = useOwnedCourses(courses, account.data);
   return (
     <>
-      <div className="py-4">
-        <MarketHeader />
-      </div>
+      <MarketHeader />
       <section className="grid grid-cols-1">
         {ownedCourses.data?.map((course) => (
           <OwnedCourseCard key={course.id} course={course}>
-            {/* <Message>
-              My custom message!
-            </Message> */}
-            <Button>Watch the course</Button>
+            <Button onClick={() => router.push(`/courses/${course.slug}`)}>
+              Watch the course
+            </Button>
           </OwnedCourseCard>
         ))}
       </section>
