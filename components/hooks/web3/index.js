@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 import { useHooks } from '@components/providers/web3';
+import { useWeb3 } from '@components/providers';
 
 const _isEmpty = (data) =>
   data == null ||
@@ -31,6 +35,24 @@ export const useAccount = () => {
   };
 };
 
+export const useAdmin = ({ redirectTo }) => {
+  const router = useRouter();
+  const { account } = useAccount();
+  const { requireInstall } = useWeb3();
+
+  useEffect(() => {
+    if (
+      requireInstall ||
+      (account.hasInitialResponse && !account.isAdmin) ||
+      account.isEmpty
+    ) {
+      router.push(redirectTo);
+    }
+  }, [account]);
+
+  return { account };
+};
+
 export const useOwnedCourses = (...args) => {
   const swrRes = enhanceHook(
     useHooks((hooks) => hooks.useOwnedCourses)(...args)
@@ -46,6 +68,15 @@ export const useOwnedCourse = (...args) => {
   );
   return {
     ownedCourse: swrRes,
+  };
+};
+
+export const useManagedCourses = (...args) => {
+  const swrRes = enhanceHook(
+    useHooks((hooks) => hooks.useManagedCourses)(...args)
+  );
+  return {
+    managedCourses: swrRes,
   };
 };
 
