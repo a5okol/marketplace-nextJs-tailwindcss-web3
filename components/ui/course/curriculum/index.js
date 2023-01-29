@@ -70,25 +70,28 @@ const Curriculum = ({ locked, courseState, isLoading }) => {
                         ) : locked ? (
                           <>
                             {courseState === 'deactivated' && (
-                              <Link href="/marketplace">
-                                <a className="text-indigo-600 hover:text-indigo-900">
-                                  Get Access
-                                </a>
+                              <Link
+                                href="/marketplace"
+                                className="text-indigo-600 hover:text-indigo-900"
+                              >
+                                Get Access
                               </Link>
                             )}
                             {courseState === 'purchased' && (
-                              <Link href="/faq">
-                                <a className="text-yellow-500 hover:text-yellow-900">
-                                  Waiting for activation...
-                                </a>
+                              <Link
+                                href="/faq"
+                                className="text-yellow-500 hover:text-yellow-900"
+                              >
+                                Waiting for activation...
                               </Link>
                             )}
                           </>
                         ) : (
-                          <Link href="/watch">
-                            <a className="text-indigo-600 hover:text-indigo-900">
-                              Watch
-                            </a>
+                          <Link
+                            href="/watch"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            Watch
                           </Link>
                         )}
                       </td>

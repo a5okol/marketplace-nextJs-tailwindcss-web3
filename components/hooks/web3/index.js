@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { useHooks } from '@components/providers/web3';
 import { useWeb3 } from '@components/providers';
+import { useHooks } from '@components/providers/web3';
 
 const _isEmpty = (data) =>
   data == null ||
@@ -84,9 +84,13 @@ export const useWalletInfo = () => {
   const { account } = useAccount();
   const { network } = useNetwork();
 
+  const isConnecting =
+    !account.hasInitialResponse && !network.hasInitialResponse;
+
   return {
     account,
     network,
-    canPurchaseCourse: !!(account.data && network.isSupported),
+    isConnecting,
+    hasConnectedWallet: !!(account.data && network.isSupported),
   };
 };

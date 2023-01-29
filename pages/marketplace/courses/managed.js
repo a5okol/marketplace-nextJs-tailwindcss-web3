@@ -7,6 +7,16 @@ import { MarketHeader } from '@components/ui/marketplace';
 import { useAdmin, useManagedCourses } from '@components/hooks/web3';
 import { CourseFilter, ManagedCourseCard } from '@components/ui/course';
 
+// BEFORE TX BALANCE -> 85,233893735999999996
+
+// GAS 133009 * 20000000000 -> 2660180000000000 -> 0,00266018
+
+// GAS + VALUE SEND = 0,00266018 + 1 -> 1,00266018
+
+// AFTER TX -> 84,231233556
+// AFTER TX -> 84,231233556
+//             85,231233556
+
 const VerificationInput = ({ onVerify }) => {
   const [email, setEmail] = useState('');
 
@@ -33,10 +43,10 @@ const VerificationInput = ({ onVerify }) => {
 };
 
 export default function ManagedCourses() {
-  const { web3 } = useWeb3();
+  const [proofedOwnership, setProofedOwnership] = useState({});
+  const { web3, contract } = useWeb3();
   const { account } = useAdmin({ redirectTo: '/marketplace' });
   const { managedCourses } = useManagedCourses(account);
-  const [proofedOwnership, setProofedOwnership] = useState({});
 
   const verifyCourse = (email, { hash, proof }) => {
     const emailHash = web3.utils.sha3(email);
@@ -54,6 +64,24 @@ export default function ManagedCourses() {
           ...proofedOwnership,
           [hash]: false,
         });
+  };
+
+  const changeCourseState = async (courseHash, method) => {
+    try {
+      await contract.methods[method](courseHash).send({
+        from: account.data,
+      });
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  const activateCourse = async (courseHash) => {
+    changeCourseState(courseHash, 'activateCourse');
+  };
+
+  const deactivateCourse = async (courseHash) => {
+    changeCourseState(courseHash, 'deactivateCourse');
   };
 
   if (!account.isAdmin) {
@@ -85,11 +113,29 @@ export default function ManagedCourses() {
                 <Message type="danger">Wrong Proof!</Message>
               </div>
             )}
+            {course.state === 'purchased' && (
+              <div className="mt-2">
+                <Button
+                  onClick={() => activateCourse(course.hash)}
+                  variant="green"
+                >
+                  Activate
+                </Button>
+                <Button
+                  onClick={() => deactivateCourse(course.hash)}
+                  variant="red"
+                >
+                  Deactivate
+                </Button>
+              </div>
+            )}
           </ManagedCourseCard>
         ))}
       </section>
     </>
   );
 }
+
+// 94.6367 ETH
 
 ManagedCourses.Layout = BaseLayout;

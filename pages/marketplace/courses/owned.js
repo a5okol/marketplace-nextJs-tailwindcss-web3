@@ -22,10 +22,8 @@ export default function OwnedCourses({ courses }) {
           <div>
             <Message type="warning">
               <div>You dont own any courses</div>
-              <Link href="/marketplace">
-                <a className="font-normal underline">
-                  <i>Purchase Course</i>
-                </a>
+              <Link href="/marketplace" className="font-normal underline">
+                <i>Purchase Course</i>
               </Link>
             </Message>
           </div>
