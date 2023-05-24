@@ -5,6 +5,7 @@ const SIZE = {
 };
 
 export default function Button({
+  onClick,
   children,
   className,
   size = 'md',
@@ -26,6 +27,7 @@ export default function Button({
   return (
     <button
       {...rest}
+      onClick={onClick}
       className={`${sizeClass} disabled:opacity-50 disabled:cursor-not-allowed border rounded-md font-medium ${className} ${variants[variant]}`}
     >
       {children}

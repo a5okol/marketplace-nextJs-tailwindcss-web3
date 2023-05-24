@@ -16,6 +16,59 @@ contract CourseMarketplace {
     State state; // 1
   }
 
+  bool public isStopped = false;
+
+  modifier onlyWhenNotStopped {
+    require(!isStopped);
+    _; //  is used inside a modifier to specify when the function should be executed. A modifier is a piece of code that manipulates the execution of a function. The _; instruction can be called before and after the call of the function.
+  }
+
+  modifier onlyWhenStopped {
+    require(isStopped);
+    _;
+  }
+
+  receive() external payable {}
+
+  function withdraw(uint amount)
+    external
+    onlyOwner
+  {
+    (bool success, ) = owner.call{value: amount}(""); 
+    require(success, "Transfer failed."); // require for fanction! if success is false, then status is Transfer failed
+  }
+
+  function emergencyWithdraw()
+    external
+    onlyWhenStopped
+    onlyOwner
+  {
+    (bool success, ) = owner.call{value: address(this).balance}("");
+    require(success, "Transfer failed."); // require for fanction! if success is false, then status is Transfer failed
+  }
+
+  function selfDestruct() 
+    external
+    onlyWhenStopped
+    onlyOwner
+  { // destract the contract and send all the money to the owner
+    selfdestruct(owner);
+  }
+
+  function stopContract()
+    external
+    onlyOwner
+  {
+    isStopped = true;
+  }
+
+  function resumeContract()
+    external
+    onlyOwner
+  {
+    isStopped = false;
+  }
+
   // mapping of courseHash to Course data
   mapping(bytes32 => Course) private ownedCourses;
 
@@ -59,6 +112,7 @@ contract CourseMarketplace {
   )
     external
     payable
+    onlyWhenNotStopped
   {
     // course id - 10
     // 0x00000000000000000000000000003130 // - value of the 10 in hexdecimal format (ASCII to HEX) (16 bytes)
@@ -87,6 +141,7 @@ contract CourseMarketplace {
   function repurchaseCourse(bytes32 courseHash)
     external
     payable
+    onlyWhenNotStopped
   {
     if (!isCourseCreated(courseHash)) {
       revert CourseIsNotCreated();
@@ -109,6 +164,7 @@ contract CourseMarketplace {
   function activateCourse(bytes32 courseHash)
     external
     onlyOwner
+    onlyWhenNotStopped
   {
     if (!isCourseCreated(courseHash)) {
       revert CourseIsNotCreated();
@@ -125,6 +181,7 @@ contract CourseMarketplace {
 
   function deactivateCourse(bytes32 courseHash)
     external
+    onlyWhenNotStopped
     onlyOwner
   {
     if (!isCourseCreated(courseHash)) {
