@@ -20,7 +20,6 @@ const enhanceHook = (swrRes) => {
     hasInitialResponse,
   };
 };
-
 export const useNetwork = () => {
   const swrRes = enhanceHook(useHooks((hooks) => hooks.useNetwork)());
   return {
