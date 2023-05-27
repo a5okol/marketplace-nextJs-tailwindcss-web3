@@ -1,4 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Web3 Solidity NextJs Tailwind Marketplace [dApps]
+
+This advanced application involves Next JS, Solidity, and Ganache, along with deployment to an actual blockchain.
+
+## Demo
+
+[https://marketplace-next-tailwind-web3.vercel.app/](https://marketplace-next-tailwind-web3.vercel.app/)
+
+## Built With
+
+- [NextJs](https://nextjs.org/)
+- [Tailwind](https://tailwindcss.com/)
+- [Solidity](https://docs.soliditylang.org/en/v0.8.6/)
+- [Web3](https://web3js.readthedocs.io/)
+- [Infura](https://infura.io/)
+- [Metamask](https://metamask.io/)
+- [Ganache](https://www.trufflesuite.com/ganache)
+- [Truffle](https://www.trufflesuite.com/truffle)
+- [Etherscan](https://etherscan.io/)
+- [Ethers](https://docs.ethers.io/v5/)
+- [Sepolia Test Network](https://sepolia.etherscan.io/)
+- [Axios](https://axios-http.com/)
+- [SWR](https://swr.vercel.app/)
+- [React-Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [Vercel](https://vercel.com/)
+
+## Screenshots
+
+MetaMask is not installed
+![alt text](public/1.jpg '1')
+
+MetaMask is not connected
+![alt text](public/2.jpg '2')
+
+MetaMask is connected to wrong network
+![alt text](public/3.jpg '3')
+
+MetaMask is connected to correct network
+![alt text](public/4.jpg '4')
+
+Purchase in progress toast notification
+![alt text](public/6.jpg '6')
+
+Toast notification of successful and failed purchases
+![alt text](public/7.jpg '7')
+
+Admin section. Admin can activate/deactivate purchases
+![alt text](public/7.15.jpg '7.15')
+
+Example of activated and deactivated purchase
+![alt text](public/7.2.jpg '7.2')
 
 ## Getting Started
 
@@ -10,25 +60,26 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploying
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+npm run deploy
+# or
+yarn deploy
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## ENV
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+NEXT_PUBLIC_TARGET_CHAIN_ID=11155111
+NEXT_PUBLIC_NETWORK_ID=11155111
+```
 
-## Learn More
+## Keys
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+{
+  "INFURA_PROJECT_ID": "",
+  "MNEMONIC": "",
+}
+```
