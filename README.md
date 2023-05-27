@@ -16,6 +16,7 @@ This advanced application involves Next JS, Solidity, and Ganache, along with de
 - [Metamask](https://metamask.io/)
 - [Ganache](https://www.trufflesuite.com/ganache)
 - [Truffle](https://www.trufflesuite.com/truffle)
+- [Remix](https://remix.ethereum.org/)
 - [Etherscan](https://etherscan.io/)
 - [Ethers](https://docs.ethers.io/v5/)
 - [Sepolia Test Network](https://sepolia.etherscan.io/)
